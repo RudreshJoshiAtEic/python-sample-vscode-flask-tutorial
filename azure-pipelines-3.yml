@@ -68,7 +68,9 @@ steps:
     # https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/define?planId=1&suiteId=2
     # $url = "https://dev.azure.com/$organization/$project/_apis/test/Plans/$planId/suites?api-version=5.0"
    
-    $url = "https://dev.azure.com/$organization/$project/_testPlans/Plans/$planId/suites?api-version=5.0"
+    #$url = "https://dev.azure.com/$organization/$project/_testPlans/Plans/$planId/suites?api-version=5.0"
+    
+    $url = "https://dev.azure.com/{organization}/{project}/_apis/testplan/Plans/{planId}/suites?api-version=7.1"
 
     $cred = New-Object –TypeName "System.Management.Automation.PSCredential" –ArgumentList "AzPipeline", $password
 
