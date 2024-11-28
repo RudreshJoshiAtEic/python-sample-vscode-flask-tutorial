@@ -97,7 +97,7 @@ steps:
     #$testSuites = Invoke-RestMethod -Uri $uri
     #echo $testSuites.value
     
-    $getAllTestSuites = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans?planId=1&suiteId=3"
+    $getAllTestSuites = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans?planId=1&suites?$apiVersion"
     $testSuites = Invoke-RestMethod  -Uri $getAllTestSuites -Method Get -ContentType "application/json" -Headers $header
     echo $testSuites.value
 
