@@ -58,3 +58,35 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/test-*.xml'
+
+- pwsh: |
+    $organization = "v-rujoshi"
+    $project = "v-rujoshi"
+    $planId = 1
+    $password = ConvertTo-SecureString -String $env:SYSTEM_ACCESSTOKEN -AsPlainText -Force
+    # https://v-rujoshi@dev.azure.com/v-rujoshi/v-rujoshi/_git/v-rujoshi
+    # https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/define?planId=1&suiteId=2
+    # $url = "https://dev.azure.com/$organization/$project/_apis/test/Plans/$planId/suites?api-version=5.0"
+   
+    $url = "https://dev.azure.com/$organization/$project/_testPlans/Plans/$planId/suites?api-version=5.0"
+
+    $cred = New-Object –TypeName "System.Management.Automation.PSCredential" –ArgumentList "AzPipeline", $password
+
+    $response = Invoke-RestMethod -Uri $url -Authentication Basic -Method Get -Credential $cred
+
+    $testSuites = $response |
+      ForEach-Object{ $_.value.id} |
+      Join-String -Separator ', '
+
+    Write-Host "##vso[task.setvariable variable=testSuites;]$testSuites"
+  env:
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+
+- task: VSTest@2
+  inputs:
+    testSelector: testPlan
+    testPlan: 1
+    testSuite: $(testSuites)
+    testConfiguration: 2
+    uiTests: true
+    testRunTitle: 'Automated UI testing'
