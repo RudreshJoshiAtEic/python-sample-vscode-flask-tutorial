@@ -105,7 +105,7 @@ steps:
     # Write-Host "##vso[task.setvariable variable=testSuites;]$testSuites"
     
     # Get all test points for a test suite
-    $getAllTestPoints = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans/1/suites/3/points?$apiVersion"
+    $getAllTestPoints = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans?planId=1&suiteId=3/points?$apiVersion"
     $testPoints= Invoke-RestMethod  -Uri $getAllTestPoints -Method Get -ContentType "application/json" -Headers $header
     $getTestPointsId = $testPoints.value.id -join ','  
 
