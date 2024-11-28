@@ -1,5 +1,6 @@
 trigger:
-- main
+#- main
+   none
 
 variables:
   # Azure Resource Manager connection created during pipeline creation
