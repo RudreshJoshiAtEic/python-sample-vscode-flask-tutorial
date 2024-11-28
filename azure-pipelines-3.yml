@@ -70,7 +70,9 @@ steps:
    
     #$url = "https://dev.azure.com/$organization/$project/_testPlans/Plans/$planId/suites?api-version=5.0"
     
-    $url = "https://dev.azure.com/{organization}/{project}/_apis/testplan/Plans/{planId}/suites?api-version=7.1"
+    #$url = "https://dev.azure.com/{organization}/{project}/_apis/testplan/Plans/{planId}/suites?api-version=7.1"
+
+    $url = "https://dev.azure.com/{organization}/{project}/_apis/testplan/Plans/{planId}/suites?expand=Children, DefaultTesters&api-version=5.1-preview.1"
 
     $cred = New-Object –TypeName "System.Management.Automation.PSCredential" –ArgumentList "AzPipeline", $password
 
