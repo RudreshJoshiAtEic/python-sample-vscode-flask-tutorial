@@ -80,13 +80,13 @@ steps:
 
 
 
-    $cred = New-Object –TypeName "System.Management.Automation.PSCredential" –ArgumentList "AzPipeline", $password
+    #$cred = New-Object –TypeName "System.Management.Automation.PSCredential" –ArgumentList "AzPipeline", $password
 
-    $response = Invoke-RestMethod -Uri $url -Authentication Basic -Method Get -Credential $cred
+    #    $response = Invoke-RestMethod -Uri $url -Authentication Basic -Method Get -Credential $cred
 
-    $testSuites = $response |
-      ForEach-Object{ $_.value.id} |
-      Join-String -Separator ', '
+    #    $testSuites = $response |
+    #      ForEach-Object{ $_.value.id} |
+    #      Join-String -Separator ', '
 
     Write-Host "##vso[task.setvariable variable=testSuites;]$testSuites"
   env:
