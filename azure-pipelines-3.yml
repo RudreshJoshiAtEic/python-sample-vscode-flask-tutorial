@@ -88,11 +88,13 @@ steps:
     #    $testSuites = $response |
     #      ForEach-Object{ $_.value.id} |
     #      Join-String -Separator ', '
-    $x = 0
-    Invoke-RestMethod -Uri $uri | ForEach-Object -Begin  {$x++} 
-    echo $x
-    -End
-    $x
+    #$x = 0
+    #Invoke-RestMethod -Uri $uri | ForEach-Object -Begin  {$x++} 
+    #echo $x
+    #-End
+    # $x
+    $testSuites = Invoke-RestMethod -Uri $uri
+    echo $testSuites.value
     
     Write-Host "##vso[task.setvariable variable=testSuites;]$testSuites"
   env:
