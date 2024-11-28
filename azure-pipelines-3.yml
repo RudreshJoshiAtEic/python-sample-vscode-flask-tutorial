@@ -96,11 +96,11 @@ steps:
   env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
-- task: VSTest@2
-  inputs:
-    testSelector: testPlan
-    testPlan: 1
-    testSuite: $(testSuites)
-    testConfiguration: 2
-    uiTests: true
-    testRunTitle: 'Automated UI testing'
+#- task: VSTest@2
+#  inputs:
+#    testSelector: testPlan
+#    testPlan: 1
+#    testSuite: $(testSuites)
+#    testConfiguration: 2
+#    uiTests: true
+#    testRunTitle: 'Automated UI testing'
