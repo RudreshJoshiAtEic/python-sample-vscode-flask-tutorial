@@ -93,9 +93,14 @@ steps:
     #echo $x
     #-End
     # $x
-    $testSuites = Invoke-RestMethod -Uri $uri
-    echo $testSuites.value
+    # works , displays full html , javascript 
+    #$testSuites = Invoke-RestMethod -Uri $uri
+    #echo $testSuites.value
     
+    $getAllTestSuites = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans?planId=1&suiteId=3"
+    $testSuites = Invoke-RestMethod  -Uri $getAllTestSuites -Method Get -ContentType "application/json" -Headers $header
+    echo $testSuites.value
+
     Write-Host "##vso[task.setvariable variable=testSuites;]$testSuites"
   env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
