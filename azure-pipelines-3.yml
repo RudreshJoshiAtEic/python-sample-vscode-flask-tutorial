@@ -89,8 +89,8 @@ steps:
     #      ForEach-Object{ $_.value.id} |
     #      Join-String -Separator ', '
     $x = 0
-    Invoke-RestMethod -Uri $uri | ForEach-Object -Begin  $x++ 
-    echo $X
+    Invoke-RestMethod -Uri $uri | ForEach-Object -Begin  {$x++} 
+    echo $x
     -End
     $x
     
