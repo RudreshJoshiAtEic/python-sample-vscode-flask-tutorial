@@ -123,7 +123,7 @@ steps:
 
     echo "Does it display anything now ?  "
     # works , displays full html , javascript : lets see 
-    $testResponse2 = Invoke-RestMethod -Uri $uri
+    $testResponse2 = Invoke-RestMethod -Uri $uri -Method Get -ContentType "application/json" -Headers $header
     echo $testResponse2.value
 
 
