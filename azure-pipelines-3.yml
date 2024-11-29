@@ -112,6 +112,17 @@ steps:
     $test = "[$getTestPointsId]" 
     echo $test
 
+
+    $getAllTestPlans = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans?api-version=5.0"
+
+    $testResponse = Invoke-RestMethod -Uri $getAllTestPlans
+
+    echo "See if displays any testresponse "
+
+    echo $testResponse.value
+
+
+
   env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
