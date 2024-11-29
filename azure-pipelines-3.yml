@@ -129,6 +129,15 @@ steps:
     echo $testResponse2.value
     echo $header
 
+    $orgUrl = "https://dev.azure.com/{orgUrl}"
+    $projUrl = "{projUrl}"
+    $apiVersion = "api-version=5.0"
+    $RAgetAllTestPlans = "$orgUrl/$projUrl/_apis/test/plans?$apiVersion"
+    $RAtestPlans = Invoke-RestMethod  -Uri $RAgetAllTestPlans -Method Get -ContentType "application/json" -Headers $header
+    echo "Displaying RATestPlans"
+    echo $RAtestPlans.value
+
+
   env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
