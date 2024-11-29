@@ -113,7 +113,7 @@ steps:
     echo $test
 
 
-    $getAllTestPlans = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans?api-version=5.0"
+    $getAllTestPlans = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans?api-version=7.1"
 
     $testResponse = Invoke-RestMethod -Uri $getAllTestPlans
 
