@@ -128,6 +128,8 @@ steps:
     $testResponse2 = Invoke-RestMethod -Uri $uri -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
     echo $testResponse2.value
     echo $header
+    echo $testResponse2
+    
 
     $orgUrl = "https://dev.azure.com/{v-rujoshi}"
     $projUrl = "{v-rujoshi}"
