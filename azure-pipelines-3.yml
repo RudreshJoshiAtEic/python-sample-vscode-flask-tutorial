@@ -150,7 +150,7 @@ steps:
 
     echo "Displaying RATestPlans RAW"
     
-    uri3 = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans?planId=1&suiteId=3"
+    $uri3 = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans?planId=1&suiteId=3"
     $testResponse3 = Invoke-RestMethod -Uri $uri -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
     echo "testResponse3 value" 
 
