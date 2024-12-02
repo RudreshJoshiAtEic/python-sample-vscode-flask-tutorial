@@ -119,7 +119,7 @@ steps:
 
     $testResponse = Invoke-RestMethod -Uri $getAllTestPlans
 
-    echo "See if displays any testresponse "
+    echo "See if displays any testresponse.value and then raw "
 
     echo $testResponse.value
 
