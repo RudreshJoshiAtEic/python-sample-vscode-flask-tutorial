@@ -134,7 +134,7 @@ steps:
     $apiVersion = "api-version=5.0"
     $RAgetAllTestPlans = "$orgUrl/$projUrl/_apis/test/plans?$apiVersion"
     #$RAtestPlans = Invoke-RestMethod  -Uri $RAgetAllTestPlans -Method Get -ContentType "application/json" -Headers $header
-    $RAtestPlans = Invoke-RestMethod  -Uri "https://spsprodcin1.vssps.visualstudio.com/_signin?realm=dev.azure.com&reply_to=https%3A%2F%2Fdev.azure.com%2Fv-rujoshi%2Fv-rujoshi%2F_testPlans%2Fplans%3FplanId%3D1&redirect=1&hid=d00cbec9-4445-4f9b-8ca1-a83a162977fb&context=eyJodCI6MiwiaGlkIjoiMzM0ZTJkMWUtYzA2NS00OTc3LWI5YTEtYzEyYjM5ZjIyNTM2IiwicXMiOnt9LCJyciI6IiIsInZoIjoiIiwiY3YiOiIiLCJjcyI6IiJ90#ctx=eyJTaWduSW5Db29raWVEb21haW5zIjpbImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSIsImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSJdfQ2" -Method Get -ContentType "application/json" -Headers $header
+    $RAtestPlans = Invoke-RestMethod  -Uri "https://spsprodcin1.vssps.visualstudio.com/_signin?realm=dev.azure.com&reply_to=https%3A%2F%2Fdev.azure.com%2Fv-rujoshi%2Fv-rujoshi%2F_testPlans%2Fplans%3FplanId%3D1&redirect=1&hid=d00cbec9-4445-4f9b-8ca1-a83a162977fb&context=eyJodCI6MiwiaGlkIjoiMzM0ZTJkMWUtYzA2NS00OTc3LWI5YTEtYzEyYjM5ZjIyNTM2IiwicXMiOnt9LCJyciI6IiIsInZoIjoiIiwiY3YiOiIiLCJjcyI6IiJ90#ctx=eyJTaWduSW5Db29raWVEb21haW5zIjpbImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSIsImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSJdfQ2" -Method Get -ContentType "application/json" -Headers $header -TimeoutSec 120
     echo "Displaying RATestPlans"
     echo $RAtestPlans.value
 
