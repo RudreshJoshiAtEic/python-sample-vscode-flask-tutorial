@@ -118,7 +118,7 @@ steps:
 
     $getAllTestPlans = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans?"
 
-    $testResponse = Invoke-RestMethod -Uri $getAllTestPlans
+    $testResponse = Invoke-RestMethod -Uri $getAllTestPlans -Method Get -ContentType "application/json" -Headers $header
 
     echo "See if displays any testresponse.value and then raw "
 
