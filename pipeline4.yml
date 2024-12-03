@@ -1,0 +1,321 @@
+parameters:
+  - name: run_build_stage
+    type: boolean
+    default: true
+  - name: buildId
+    type: number
+    default: 0
+  - name: useBuildFirmware
+    displayName: "Use Latest Manticore Firmware From Pipeline Build"
+    type: boolean
+    default: true
+  - name: useBuildUtility
+    displayName: "Use Latest Utility Firmware From Pipeline Build"
+    type: boolean
+    default: false
+  - name: rc_firmware_from_artifact
+    type: string
+    default: "None"
+  - name: enable_submodule_priority
+    type: boolean
+    default: false
+  - name: run_unittests
+    type: boolean
+    default: true
+  - name: codecov_mode
+    type: number
+    default: 1
+  - name: run_credscan
+    type: boolean
+    default: false
+  - name: run_valgrind
+    type: boolean
+    default: false
+  - name: build_component
+    displayName: "Component to Run Unit Tests\\Static Analysis"
+    type: string
+    default: All
+    values:
+    - All
+    - hsp
+    - cp
+    - fp
+  - name: codeql_mode
+    type: number
+    default: 0
+  - name: publish
+    type: boolean
+    default: true
+    # Blade Type
+  - name: testBladeType
+    displayName: "Blade Type to Run Validation"
+    type: string
+    default: C41A8
+    values:
+    - Select
+    - C219B
+    - C2195
+    - C41A8
+  # Test Platform
+  - name: testBlade
+    displayName: "Blade to Run Validation"
+    type: string
+    default: Manticore-IntegrationTest-LinuxBlade
+    values:
+    - Select
+    - Manticore-IntegrationTest-LinuxBlade
+    - B27-3145-G3-C41A8-Windows-Manticore
+    - Dev_Test_Nightly_Manticore_Pipeline_LinuxBlade
+    - Standalone_Test_Suite_Manticore_Pipeline_WindowsBlade
+
+  # Platform on Which test Need to be executed
+  - name: cerberusTestPlatform
+    displayName: "Cerberus Platform To Run Test"
+    type: string
+    default: host_ipmi
+    values:
+    - Select
+    - host_ipmi
+    - redfish
+    - ipmi_overlake
+    - overlake_inband
+
+  # Features to validate in SOC BVT run (if selected.) Default is all
+  - name: testSuite
+    displayName: "BVT Target Suite"
+    type: string
+    default: test_manticore_idfu_bvt
+
+  # Feature for Manticore IDFU Test Case Selection
+  # TODO :: test_03_run_idfu_rollback_test is dependent on mcr-hsm PR 86234  & Manticore PR 83759
+  # So it is failing now. Need to update the test case once the PR is merged.
+  - name: IDFUTestCaseSelection
+    displayName: "Test Case"
+    type: string
+    default: all_test
+    values:
+      - all_test
+      - test_01_run_integration_tests
+      - test_01_run_fwupdate_with_warm_reboot
+      - test_01_run_idfu_idle_test
+      - test_02_run_idfu_with_io_test
+    #   - test_03_run_idfu_rollback_test
+      - test_01_run_idfu_io_cycling_test
+      - test_02_run_idfu_perf_test
+
+resources:
+  repositories:
+    - repository: OneFleetPipelines
+      type: git
+      name: onefleet-pipelines
+      ref: $(Config.OneFleetPipelines.Branch)
+    - repository: ValidationRepo
+      name: Cerberus/Validation
+      type: git
+      ref: $(Config.ValidationRepo.Branch)
+
+trigger: none
+
+schedules:
+  - cron: '0 */2 * * *'
+    displayName: Nightly Manticore Build and Validation
+    branches:
+      include:
+        - main
+    always: true
+
+variables:
+  - group: AZCSI_ADO_Variables
+  - group: RackMan_ADO_Variables
+  - group: DVSilicon_ADO_Variables
+  - group: Test_Validation
+  - group: MSAzure_ADO_Variables
+  - template: './scripts/manticore_vars_template.yml'
+    parameters:
+      pipeline_name: 'Manticore-PR-Build'
+
+
+
+stages:
+- stage: RunAutomatedTests
+  displayName: "Traverse Test plans"
+  jobs:
+
+  - job: Test
+    steps:
+        - task: PowerShell@2
+          name: TraverseTestplansthroughPowershell
+          inputs:
+            targetType: 'inline'
+            script : 
+              #$apiVersion = "api-version=5.0"
+              # get test plans : 
+              
+              # $getAllTestplans = "https://rackmanager.visualstudio.com.mcas.ms/Cerberus/_testPlans/plans?planId=4495&suiteId=4496"
+              
+              #  $getAllTestplans =  "https://azurecsi.visualstudio.com.mcas.ms/Manticore/_testPlans/define?planId=2203465&suiteId=2203469"
+
+              # $getAllTestplans =  "https://azurecsi.visualstudio.com.mcas.ms/Manticore/_testPlans/define?planId=2203465&suiteId=2208477" 
+
+              # works , no errors but nothing in output 
+              # $getAllTestplans =  "https://azurecsi.visualstudio.com.mcas.ms/Manticore/_testPlans/plans?planId=2203465&suiteId=2208477" 
+
+              # Get all the test plans for the project
+              $getAllTestPlans = "https://azurecsi.visualstudio.com.mcas.ms/Manticore/_apis/test/plans?$expand=255&$top=255&$asTreeView=255&api-version=5.0"
+              
+              $testPlans = Invoke-RestMethod  -Uri $getAllTestPlans -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
+
+              echo "Does it echo testPlans.value "
+
+              echo $testPlans.value
+
+              Write-Host $testPlans.value
+
+              echo "Does it echo testPlans "
+              `
+              echo $testPlans
+
+              Write-Host "Does it show in cmd line Cerberus plans --- value  ? "
+              
+              $CerberusTestPlansuri = "https://rackmanager.visualstudio.com.mcas.ms/Cerberus/_testPlans/define?planId=4495&suiteId=4496"
+
+              $testResponse = Invoke-RestMethod -Uri $CerberusTestPlansuri -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
+
+              echo $testResponse.value
+
+              Write-Host "Does it show in cmd line Cerberus plans --- value  ? "
+
+              echo $testResponse
+
+              $Runresponse = Invoke-RestMethod -Uri $CerberusTestPlansuri -Headers @{Authorization = 'Bearer $env:SYSTEM_ACCESSTOKEN'} -Method Get -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
+
+              $projtestSuites = $Runresponse
+
+              Write-Host "results = $($projtestSuites | ConvertTo-Json -Depth 100)"
+              
+              echo "Another try to get all tests "
+
+              $projCerbgetAllTestPlans = "https://rackmanager.visualstudio.com.mcas.ms/Cerberus/_apis/test/plans?$apiVersion"
+              
+              $CerberustestPlans = Invoke-RestMethod  -Uri $projCerbgetAllTestPlans -Method Get -ContentType "application/json" -Headers $header
+              
+              echo $CerberustestPlans
+
+
+             
+
+              echo "----------- Get all test points for a test suite---------------"
+              
+              $getAllTestPoints = "https://rackmanager.visualstudio.com.mcas.ms/Cerberus/_apis/test/plans/4495/suites/4496/points?"
+              
+              $testPoints= Invoke-RestMethod  -Uri $getAllTestPoints -Method Get -ContentType "application/json" -Headers @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"}
+              
+              echo "displaying testsPoints"
+              echo $testPoints
+              echo "displaying testsPoints value"
+              echo $testPoints.value
+
+              # "stop pipeline run ( dont try other stages ):""
+
+              #$uri = 'https://rackmanager.visualstudio.com.mcas.ms/Cerberus/_apis/build/builds/$(Build.BuildId)?api-version=5.1'
+
+              #$json = @{status="Cancelling"} | ConvertTo-Json -Compress
+
+              #$stopcmd = Invoke-RestMethod -Uri $stoprunuri -Method Patch -Headers @{Authorization = "Bearer $(System.AccessToken)"} -ContentType "application/json" -Body $json
+
+              #Write-Host $stopcmd
+            
+
+              # get all test suits :
+              
+              #$getAllTestSuites = 'https://rackmanager.visualstudio.com.mcas.ms/Cerberus/_testPlans/define?plans?planId=4495&suiteId=4496'
+              
+              #$testSuites = Invoke-RestMethod  -Uri $getAllTestSuites -Method Get -ContentType "application/json" -Headers $header
+              
+             
+
+              # echo $testSuites.value
+              # Run tests 
+
+            
+              
+
+            pwsh: true
+
+        - task: VSTest@2
+          displayName: RunautomatedUItests
+          inputs:
+            testSelector: testPlan
+            testPlan: 4495
+            testSuite: $(testSuites)
+            testConfiguration: 2
+            uiTests: true
+            testRunTitle: 'Automated UI testing'     
+                  
+- ${{ if eq(parameters.run_build_stage, true) }}:
+  - stage: Pipeline_Setup_Build_Stage
+    displayName: "Pipeline Setup and Build Stage"
+    jobs:
+    - template: ../generic_templates/build_template.yml
+      parameters:
+        Collateral: Manticore
+        submodule_name: 'manticore'
+        enable_submodule_priority: ${{ parameters.enable_submodule_priority }}
+        analysis_unittests_target: $(cerberus_build_analysis_unittests)
+        run_unittests: ${{ parameters.run_unittests }}
+        codecov_mode: ${{ parameters.codecov_mode }}
+        run_credscan: ${{ parameters.run_credscan }}
+        run_valgrind: ${{ parameters.run_valgrind }}
+        codeql_mode: ${{ parameters.codeql_mode }}
+        publish: ${{ parameters.publish }}
+        build_component: ${{ parameters.build_component }}
+
+- ${{ if or(eq(parameters.testSuite, 'bvt'), eq(parameters.testSuite,'test_manticore_idfu_bvt')) }}:
+  - stage: Manticore_IDFU_Fault_Build
+    displayName: "Manticore IDFU Fault Build Stage"
+    jobs:
+    - template: ../generic_templates/build_idfu_faulty_firmware.yml
+      parameters:
+        Collateral: Manticore
+        submodule_name: 'manticore'
+        # enable_submodule_priority: ${{ parameters.enable_submodule_priority }}
+        publish: ${{ parameters.publish }}
+        build_component: ${{ parameters.build_component }}
+        run_build_stage: ${{ parameters.run_build_stage }}
+        build_idfu_fault_binaries: true
+
+- stage: Validation
+  displayName: "Pipeline Validation Template"
+  jobs:
+  - template: ../generic_templates/validation_template.yml
+    parameters:
+      Collateral: 'Manticore'
+      ValidationRepo: ValidationRepo
+      ReleaseRepo: ReleaseRepo
+      CerberusManifestRepo: CerberusManifestRepo
+      ReleaseCandidateRepo: ReleaseCandidateRepo
+      IntegrationTestingRepo: IntegrationTestingRepo
+      OneFleetPipelines: OneFleetPipelines
+      testBladeType: ${{ parameters.testBladeType }}
+      testBlade: ${{ parameters.testBlade }}
+      cerberusTestPlatform: ${{ parameters.cerberusTestPlatform }}
+      testRequest: 'Firmware'
+      action: 'bvt'
+      bvtFeatures: ${{ parameters.testSuite }}
+      useBuildFirmware: ${{ parameters.useBuildFirmware }}
+      buildId: ${{ parameters.buildId }}
+      useRCFirmware: ${{ parameters.rc_firmware_from_artifact }}
+      devBuild: ${{ parameters.useBuildFirmware }}
+      useBuildUtility: ${{ parameters.useBuildUtility }}
+      IDFUTestCaseSelection: ${{ parameters.IDFUTestCaseSelection }}
+
+#- stage: RunAutomatedTests
+#  displayName: "Traverse Test plans"
+#  jobs:
+
+#  - job: Test
+#    steps:
+#        - pwsh:          
+#            $getAllTestSuites = 'https://rackmanager.visualstudio.com.mcas.ms/Cerberus/_testPlans/define?planId=4495&suiteId=4496'
+#            $testSuites = Invoke-RestMethod  -Uri $getAllTestSuites -Method Get -ContentType "application/json" -Headers $header
+#            echo $testSuites.value
