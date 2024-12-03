@@ -65,80 +65,9 @@ steps:
     $project = "v-rujoshi"
     $planId = 1
     $password = ConvertTo-SecureString -String $env:SYSTEM_ACCESSTOKEN -AsPlainText -Force
-    # https://v-rujoshi@dev.azure.com/v-rujoshi/v-rujoshi/_git/v-rujoshi
-    # https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/define?planId=1&suiteId=2
-    # $url = "https://dev.azure.com/$organization/$project/_apis/test/Plans/$planId/suites?api-version=5.0"
    
-    #$url = "https://dev.azure.com/$organization/$project/_testPlans/Plans/$planId/suites?api-version=5.0"
-    
-    #$url = "https://dev.azure.com/{organization}/{project}/_apis/testplan/Plans/{planId}/suites?api-version=7.1"
-
-    #$url = "https://dev.azure.com/{organization}/{project}/_apis/testplan/Plans/{planId}/suites?expand=Children, DefaultTesters&api-version=5.1-preview.1"
-
-    #$url = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/define?planId=1/suites?api-version=7.1"
 
     $uri = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans?planId=1&suiteId=3"
-
-
-
-    #$cred = New-Object –TypeName "System.Management.Automation.PSCredential" –ArgumentList "AzPipeline", $password
-
-    #    $response = Invoke-RestMethod -Uri $url -Authentication Basic -Method Get -Credential $cred
-
-    #    $testSuites = $response |
-    #      ForEach-Object{ $_.value.id} |
-    #      Join-String -Separator ', '
-    #$x = 0
-    #Invoke-RestMethod -Uri $uri | ForEach-Object -Begin  {$x++} 
-    #echo $x
-    #-End
-    # $x
-    # works , displays full html , javascript 
-    #$testSuites = Invoke-RestMethod -Uri $uri
-    #echo $testSuites.value
-    
-    $getAllTestSuites = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans?planId=1&suites?$apiVersion"
-    $testSuites = Invoke-RestMethod  -Uri $getAllTestSuites -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120 
-    echo $testSuites.value
-
-
-    # Write-Host "##vso[task.setvariable variable=testSuites;]$testSuites"
-    
-    # Get all test points for a test suite
-    $getAllTestPoints = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans?planId=1&suiteId=3/points?$apiVersion"
-    $testPoints= Invoke-RestMethod  -Uri $getAllTestPoints -Method Get -ContentType "application/json" -Headers $header 
-    echo "Get all test points : Does it show in cmd line ?
-    $getTestPointsId = $testPoints.value.id -join ','  
-
-    $test = "[$getTestPointsId]" 
-    echo $test
-
-
-    #$getAllTestPlans = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans?api-version=7.1"
-
-    $getAllTestPlans = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans?"
-
-    $testResponse = Invoke-RestMethod -Uri $getAllTestPlans -Method Get -ContentType "application/json" -Headers $header
-
-    echo "See if displays any testresponse.value and then raw "
-
-    echo $testResponse.value
-
-    echo "Does it display anything now ?  "
-    # works , displays full html , javascript : lets see 
-    $testResponse2 = Invoke-RestMethod -Uri $uri -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
-    echo "testResponse2 value" 
-    echo "---------------------"
-    echo $testResponse2.value
-    
-    echo "---------------------  header "
-
-    echo $header
-    echo "==========================="
-    echo "testResponse2 RAW"
-    echo $testResponse2
-    
-
     $orgUrl = "https://dev.azure.com/{v-rujoshi}"
     $projUrl = "{v-rujoshi}"
     $apiVersion = "api-version=5.0"
