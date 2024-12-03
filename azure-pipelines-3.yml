@@ -151,7 +151,7 @@ steps:
     echo "Displaying RATestPlans RAW"
     
     $uri3 = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans?planId=1&suiteId=3"
-    $testResponse3 = Invoke-RestMethod -Uri $uri -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
+    $testResponse3 = Invoke-RestMethod -Uri $uri3 -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
     echo "testResponse3 value" 
 
     echo "---------------------"
@@ -163,6 +163,18 @@ steps:
     echo "---------------------"
     
     Write-Host  $testResponse3
+
+    $uri4 = https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans/1
+    $testResponse4 = Invoke-RestMethod -Uri $uri4 -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
+    echo " 4 4 4 4 4 testResponse4 value" 
+
+    echo $testResponse4.value
+    
+    echo "testResponse4 RAW" 
+
+    echo "---------------------"
+    
+    Write-Host  $testResponse4
 
   env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
