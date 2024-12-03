@@ -106,7 +106,8 @@ steps:
     
     # Get all test points for a test suite
     $getAllTestPoints = "https://dev.azure.com/v-rujoshi/v-rujoshi/_testPlans/plans?planId=1&suiteId=3/points?$apiVersion"
-    $testPoints= Invoke-RestMethod  -Uri $getAllTestPoints -Method Get -ContentType "application/json" -Headers $header Does it show in cmd line ?
+    $testPoints= Invoke-RestMethod  -Uri $getAllTestPoints -Method Get -ContentType "application/json" -Headers $header 
+    echo "Get all test points : Does it show in cmd line ?
     $getTestPointsId = $testPoints.value.id -join ','  
 
     $test = "[$getTestPointsId]" 
