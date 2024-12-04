@@ -74,6 +74,9 @@ steps:
 
     echo "displaying token . . . . . . . "
     echo $token 
+
+    echo "displaying header . . . . . . . "
+    echo $header 
     
     # Get all the test plans for the project
     $getAllTestPlans = "$orgUrl/$projUrl/_apis/test/plans?$apiVersion"
