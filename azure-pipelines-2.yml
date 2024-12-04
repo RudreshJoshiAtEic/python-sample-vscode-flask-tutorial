@@ -94,7 +94,8 @@ steps:
     
     Write-Host  $testResponse3
     $headerPAT = @{Authorization = 'Bearer $env:SYSTEM_ACCESSTOKEN'}
-    $connectionToken="3QlAYOMaju1nrrrzKcgwteQ0aIh5YN3ZQ07aCxpP605zapuzGMYeJQQJ99ALACAAAAAAArohAAASAZDOY7OD"
+
+    $connectionToken="(3QlAYOMaju1nrrrzKcgwteQ0aIh5YN3ZQ07aCxpP605zapuzGMYeJQQJ99ALACAAAAAAArohAAASAZDOY7OD)"
     $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)")) 
     $headerPAT2 = @{authorization = "Basic $base64AuthInfo"}
     $uri4 = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans/1"
