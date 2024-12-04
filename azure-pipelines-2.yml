@@ -98,7 +98,7 @@ steps:
     $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)")) 
     $headerPAT2 = @{authorization = "Basic $base64AuthInfo"}
     $uri4 = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans/1"
-    $testResponse4 = Invoke-RestMethod -Uri $uri4 -Method Get -ContentType "application/json" -Headers $headerPAT -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
+    $testResponse4 = Invoke-RestMethod -Uri $uri4 -Method Get -ContentType "application/json" -Headers $headerPAT2 -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
     echo " 4 4 4 4 4 testResponse4 value" 
 
     echo $testResponse4.value
