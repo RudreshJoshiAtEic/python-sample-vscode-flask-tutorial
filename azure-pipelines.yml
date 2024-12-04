@@ -65,9 +65,9 @@ steps:
     $orgUrl = "https://dev.azure.com/v-rujoshi"
     $projUrl = "v-rujoshi"
     $apiVersion = "api-version=5.0"
-    $pat = "3QlAYOMaju1nrrrzKcgwteQ0aIh5YN3ZQ07aCxpP605zapuzGMYeJQQJ99ALACAAAAAAArohAAASAZDOY7OD"
+    #$pat = "3QlAYOMaju1nrrrzKcgwteQ0aIh5YN3ZQ07aCxpP605zapuzGMYeJQQJ99ALACAAAAAAArohAAASAZDOY7OD"
 
-
+    $pat = $env:SYSTEM_ACCESSTOKEN
     # Create header with PAT
     $token = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($pat)"))
     $header = @{authorization = "Basic $token"}
