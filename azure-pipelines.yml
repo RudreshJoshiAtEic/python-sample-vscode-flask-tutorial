@@ -72,6 +72,9 @@ steps:
     $token = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($pat)"))
     $header = @{authorization = "Basic $token"}
 
+    echo "displaying token . . . . . . . "
+    echo $token 
+    
     # Get all the test plans for the project
     $getAllTestPlans = "$orgUrl/$projUrl/_apis/test/plans?$apiVersion"
     $testPlans = Invoke-RestMethod  -Uri $getAllTestPlans -Method Get -ContentType "application/json" -Headers $header
