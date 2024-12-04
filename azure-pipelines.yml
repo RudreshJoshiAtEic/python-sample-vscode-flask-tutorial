@@ -82,6 +82,14 @@ steps:
     $testSuites = Invoke-RestMethod  -Uri $getAllTestSuites -Method Get -ContentType "application/json" -Headers $header
     echo $testSuites.value
 
+    # Get all test points for a test suite
+    $getAllTestPoints = "$orgUrl/$projUrl/_apis/test/plans/1/suites/$projectTestSuiteID/points?$apiVersion"
+    $testPoints= Invoke-RestMethod  -Uri $getAllTestPoints -Method Get -ContentType "application/json" -Headers $header
+    $getTestPointsId = $testPoints.value.id -join ','  
+    echo "Are there any test points ? "
+    $test = "[$getTestPointsId]" 
+    echo $test
+
     #$uri4 = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans/1"
     #$testResponse4 = Invoke-RestMethod -Uri $uri4 -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
     #echo " 4 4 4 4 4 testResponse4 value" 
