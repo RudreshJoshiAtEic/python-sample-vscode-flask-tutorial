@@ -83,7 +83,7 @@ steps:
     echo $testSuites.value
 
     # Get all test points for a test suite
-    $getAllTestPoints = "$orgUrl/$projUrl/_apis/test/plans/1/suites/$projectTestSuiteID/points?$apiVersion"
+    $getAllTestPoints = "$orgUrl/$projUrl/_apis/test/plans/1/suites/3/points?$apiVersion"
     $testPoints= Invoke-RestMethod  -Uri $getAllTestPoints -Method Get -ContentType "application/json" -Headers $header
     $getTestPointsId = $testPoints.value.id -join ','  
     echo "Are there any test points ? "
