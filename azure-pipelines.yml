@@ -116,7 +116,7 @@ steps:
     $testRunData = "@
         {
             name:'DemoRunTest',
-            plan:{"id":{1}},
+            plan:{'id':{1}},
             pointIds:[1]
         }"
     
