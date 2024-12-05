@@ -111,6 +111,21 @@ steps:
 
     $test2 = "[$getTestPointsId2]" 
     echo $test2
+    #create test run
+    $createTestRun = "$orgUrl/$projUrl/_apis/test/runs?$apiVersion"
+    $testRunData = @"
+        {
+            "name":"DemoRunTest",
+            "plan":{"id":{1}},
+            "pointIds":[1]
+        }
+    "@
+
+
+    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $testRunData -Headers $header -ContentType "application/json"
+
+    $testRunId = $testRunInformation.id
+    
     #$uri4 = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans/1"
     #$testResponse4 = Invoke-RestMethod -Uri $uri4 -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
     #echo " 4 4 4 4 4 testResponse4 value" 
