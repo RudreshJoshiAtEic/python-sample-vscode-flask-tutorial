@@ -99,17 +99,18 @@ steps:
     $getAllTestPoints = "$orgUrl/$projUrl/_apis/test/plans/1/suites/3/points?$apiVersion"
     $testPoints= Invoke-RestMethod  -Uri $getAllTestPoints -Method Get -ContentType "application/json" -Headers $header
     $getTestPointsId = $testPoints.value.id -join ','  
-    echo "Are there any test points ? "
+    echo "Are there any test points : 1 ? "
     $test = "[$getTestPointsId]" 
     echo $test
 
     # Get all test points for a test suite
-    $getAllTestPoints = "$orgUrl/$projUrl/_apis/test/plans/1/suites/6/points?$apiVersion"
-    $testPoints= Invoke-RestMethod  -Uri $getAllTestPoints -Method Get -ContentType "application/json" -Headers $header
-    $getTestPointsId = $testPoints.value.id -join ','  
+    $getAllTestPoints2 = "$orgUrl/$projUrl/_apis/test/plans/1/suites/6/points?$apiVersion"
+    $testPoints2= Invoke-RestMethod  -Uri $getAllTestPoints2 -Method Get -ContentType "application/json" -Headers $header
+    $getTestPointsId2 = $testPoints2.value.id -join ','  
+    echo "Are there any test points : 2 ? "
 
-    $test = "[$getTestPointsId]" 
-    echo $test
+    $test2 = "[$getTestPointsId2]" 
+    echo $test2
     #$uri4 = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans/1"
     #$testResponse4 = Invoke-RestMethod -Uri $uri4 -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
     #echo " 4 4 4 4 4 testResponse4 value" 
