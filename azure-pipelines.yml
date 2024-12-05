@@ -81,8 +81,13 @@ steps:
     # Get all the test plans for the project
     $getAllTestPlans = "$orgUrl/$projUrl/_apis/test/plans?$apiVersion"
     $testPlans = Invoke-RestMethod  -Uri $getAllTestPlans -Method Get -ContentType "application/json" -Headers $header
-    echo " test plans -----------"
+    echo " test plans id and name -----------"
+    echo $testPlans.value.id
+    echo $testPlans.value.name 
+    echo " test plans all values -----------"
+    
     echo $testPlans.value
+    
 
     # Get all test suites for a test plan
     $getAllTestSuites = "$orgUrl/$projUrl/_apis/test/plans/1/suites?$apiVersion"
