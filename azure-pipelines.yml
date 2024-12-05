@@ -113,12 +113,12 @@ steps:
     echo $test2
     #create test run
     $createTestRun = "$orgUrl/$projUrl/_apis/test/runs?$apiVersion"
-    $testRunData = @
+    $testRunData = "@
         {
             "name":"DemoRunTest",
             "plan":{"id":{1}},
             "pointIds":[1]
-        }
+        }"
     
     $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $testRunData -Headers $header -ContentType "application/json"
 
