@@ -120,16 +120,16 @@ steps:
             pointIds:[1]
         }"
 
-    $payload = @"
+    $payload = "
       {
         "name":"test",
           "automated":true,
-          "pointIds":[$pointID],
+          "pointIds":1,
           "state":"NotStarted",
-          "dtlTestEnvironment":{"id":"vstfs://dummy"},
-          "plan":{"id":"$planId"},
-          "filter":{"sourceFilter":"*.dll","testCaseFilter":""}
-      }"@;
+          
+          "plan":{"id":1},
+          
+      }"
 
     
     $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload -Headers $header -ContentType "application/json"
