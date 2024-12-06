@@ -134,7 +134,7 @@ steps:
     
     $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload -Headers $header -ContentType "application/json"
     echo "Printing testRunInformation.id"
-
+    echo $testRunInformation.id
     $testRunId = $testRunInformation.id
     
     #$uri4 = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans/1"
