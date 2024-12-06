@@ -122,12 +122,12 @@ steps:
 
     $payload = "
       {
-        "name":"test",
-          "automated":true,
-          "pointIds":1,
-          "state":"NotStarted",
+        name:"test",
+        automated:true,
+        pointIds:1,
+        state:"NotStarted",
           
-          "plan":{"id":1},
+        plan:{"id":1},
           
       }"
 
