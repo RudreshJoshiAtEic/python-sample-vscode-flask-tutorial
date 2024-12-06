@@ -120,14 +120,14 @@ steps:
             pointIds:[1]
         }"
 
-    $payload = "
+    $payload = "@
       {
-        name:"test",
+        name:test,
         automated:true,
         pointIds:1,
-        state:"NotStarted",
+        state:NotStarted,
           
-        plan:{"id":1},
+        plan:{id:1},
           
       }"
 
