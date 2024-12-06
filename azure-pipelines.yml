@@ -119,8 +119,20 @@ steps:
             plan:{'id':{1}},
             pointIds:[1]
         }"
+
+    $payload = @"
+      {
+        "name":"test",
+          "automated":true,
+          "pointIds":[$pointID],
+          "state":"NotStarted",
+          "dtlTestEnvironment":{"id":"vstfs://dummy"},
+          "plan":{"id":"$planId"},
+          "filter":{"sourceFilter":"*.dll","testCaseFilter":""}
+      }"@;
+
     
-    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $testRunData -Headers $header -ContentType "application/json"
+    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload -Headers $header -ContentType "application/json"
 
     $testRunId = $testRunInformation.id
     
