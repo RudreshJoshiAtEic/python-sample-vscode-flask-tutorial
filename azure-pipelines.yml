@@ -117,7 +117,8 @@ steps:
         {
             name:'DemoRunTest',
             plan:{'id':{1}},
-            pointIds:[1]
+            pointIds:[1],
+            testRun:1
         }"
 
     $payload = "
