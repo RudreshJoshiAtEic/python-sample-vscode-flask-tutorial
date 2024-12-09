@@ -104,7 +104,9 @@ steps:
 
     $test2 = "[$getTestPointsId2]" 
     echo $test2
+    #$string = "My name is {0} and I am {1} years old" -f $name, $age
 
+    #Read more: https://www.sharepointdiary.com/2021/11/powershell-string-manipulation-comprehensive-guide.html#ixzz8tv0a5vd0
     $createTestRun5 = "$orgUrl/$projUrl/_apis/test/runs?$apiVersion"
      $payload5 = '{
         "name": "NewTestRun",
@@ -112,8 +114,8 @@ steps:
         "plan": {
           "id": 1
         },
-        "pointIds": $getTestPointsId2
-      }'
+        "pointIds": {0}
+      }' -f $getTestPointsId2
 
     echo "payload5 : "
 
