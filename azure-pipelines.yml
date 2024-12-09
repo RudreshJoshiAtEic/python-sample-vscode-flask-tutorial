@@ -112,7 +112,7 @@ steps:
         "plan": {
           "id": 1
         },
-        "pointIds": [$getTestPointsId2]
+        "pointIds": $getTestPointsId2
       }'
 
     echo "payload5 : "
