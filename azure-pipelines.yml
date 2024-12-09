@@ -125,11 +125,11 @@ steps:
         "plan": {
           "id": 1
         },
-        "pointIds": {0}
+        "pointIds": '{0'}
       }'
     
     $payload5.format($payloadUnformated , $getTestPointsId2)
-    
+
     echo $payload5
 
     #$testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun5 -Body $payload5 -Headers $header -ContentType "application/json"
