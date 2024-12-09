@@ -105,7 +105,7 @@ steps:
     $test2 = "[$getTestPointsId2]" 
     echo $test2
 
-    $createTestRun = "$orgUrl/$projUrl/_apis/test/runs?$apiVersion"
+    $createTestRun5 = "$orgUrl/$projUrl/_apis/test/runs?$apiVersion"
      $payload5 = '{
         "name": "NewTestRun",
         "automated":true,
@@ -119,7 +119,7 @@ steps:
 
     echo $payload5
 
-    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload5 -Headers $header -ContentType "application/json"
+    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun5 -Body $payload5 -Headers $header -ContentType "application/json"
 
     $testRunId = $testRunInformation.id
 
