@@ -95,8 +95,6 @@ steps:
     echo " test suites -----------"
     echo $testSuites.value
 
-   
-
     # Get all test points for a test suite
     $getAllTestPoints2 = "$orgUrl/$projUrl/_apis/test/plans/1/suites/6/points?$apiVersion"
     $testPoints2= Invoke-RestMethod  -Uri $getAllTestPoints2 -Method Get -ContentType "application/json" -Headers $header
