@@ -137,11 +137,12 @@ steps:
 
    
       $payload3 = "{
-        "name": "NewTestRun",
-        "plan": {
-          "id": "1"
+        name: NewTestRun,
+        automated:true,
+        plan: {
+          id: 1
         },
-        "pointIds": [  1, 1 ]
+        pointIds: [  1, 1 ]
       }"
 
     #    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload -Headers $header -ContentType "application/json"
