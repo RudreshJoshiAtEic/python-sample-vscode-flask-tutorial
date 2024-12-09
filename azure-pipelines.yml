@@ -109,6 +109,7 @@ steps:
     $getTestPointsId2 = $testPoints2.value.id -join ','  
     echo "Are there any test points : 2 ? "
 
+
     $test2 = "[$getTestPointsId2]" 
     echo $test2
     #create test run
@@ -127,15 +128,28 @@ steps:
         automated:true,
         pointIds:1,
         state:NotStarted,
-        testRun:1000
+        testRun:1000,
         plan:@{id:1},
           
       }"
 
-    
-    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload -Headers $header -ContentType "application/json"
+    # not running this as of now     
+
+   
+      payload3 = "{
+        "name": "NewTestRun",
+        "plan": {
+          "id": "1"
+        },
+        "pointIds": [  1, 1 ]
+      }"
+
+    #    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload -Headers $header -ContentType "application/json"
+   $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload3 -Headers $header -ContentType "application/json"
     echo "Printing testRunInformation.id"
+   
     echo $testRunInformation.id
+   
     $testRunId = $testRunInformation.id
     
     #$uri4 = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans/1"
