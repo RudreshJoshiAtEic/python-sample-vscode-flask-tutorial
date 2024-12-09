@@ -107,9 +107,15 @@ steps:
     #$string = "My name is {0} and I am {1} years old" -f $name, $age
 
     #Read more: https://www.sharepointdiary.com/2021/11/powershell-string-manipulation-comprehensive-guide.html#ixzz8tv0a5vd0
+    
     $createTestRun5 = "$orgUrl/$projUrl/_apis/test/runs?$apiVersion"
-    $payload5 = '{ "name": "NewTestRun", "automated":true,"plan": {"id": 1 },  "pointIds": {0} } ' -f $getTestPointsId2
+    #$payload5 = [String]::Format("Name: {0}, Age: {1}, City: {2}", $name, $age, $city)
+                
+    #Read more: https://www.sharepointdiary.com/2021/11/powershell-string-manipulation-comprehensive-guide.html#ixzz8tv4LPqC2
 
+
+   # $payload5 = '{ "name": "NewTestRun", "automated":true,"plan": {"id": 1 },  "pointIds": {0} } ' -f $getTestPointsId2
+    $payload5 = [String]::Format('{ "name": "NewTestRun", "automated":true,"plan": {"id": 1 },  "pointIds": {0} } ', $getTestPointsId2)
     echo "payload5 : "
 
     echo $payload5
