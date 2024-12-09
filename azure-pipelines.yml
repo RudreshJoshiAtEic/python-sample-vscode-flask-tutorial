@@ -145,7 +145,20 @@ steps:
         pointIds: [  1, 1 ]
       }"
     
+    $payload4 = '{
+        "name": "NewTestRun",
+        "automated":true,
+        "plan": {
+          "id": 1
+        },
+        "pointIds": [  1, 1 ]
+      }'
     echo " url : CeateTestRun"
+
+    echo "payload4 : "
+
+    echo $payload4
+    
     echo $createTestRun
     #    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload -Headers $header -ContentType "application/json"
    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload3 -Headers $header -ContentType "application/json"
