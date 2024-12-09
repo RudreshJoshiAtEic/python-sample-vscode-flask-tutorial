@@ -127,7 +127,7 @@ steps:
         automated:true,
         pointIds:1,
         state:NotStarted,
-          
+        testRun:1000
         plan:@{id:1},
           
       }"
