@@ -147,6 +147,10 @@ steps:
 
     #    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload -Headers $header -ContentType "application/json"
    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload3 -Headers $header -ContentType "application/json"
+    echo " url : CeateTestRun"
+    
+    echo $createTestRun
+
     echo "Printing testRunInformation.id"
    
     echo $testRunInformation.id
