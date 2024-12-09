@@ -158,10 +158,10 @@ steps:
     echo "payload4 : "
 
     echo $payload4
-    
+
     echo $createTestRun
     #    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload -Headers $header -ContentType "application/json"
-   $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload3 -Headers $header -ContentType "application/json"
+   $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload4 -Headers $header -ContentType "application/json"
     
     
     
