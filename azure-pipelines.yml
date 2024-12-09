@@ -151,7 +151,7 @@ steps:
         "plan": {
           "id": 1
         },
-        "pointIds": [  1, 1 ]
+        "pointIds": [  1, 2 ]
       }'
     echo " url : CeateTestRun"
 
@@ -171,6 +171,11 @@ steps:
     echo $testRunInformation.id
    
     $testRunId = $testRunInformation.id
+    
+    echo "Printing testRunInformation"
+    
+    echo $testRunInformation
+
     
     #$uri4 = "https://dev.azure.com/v-rujoshi/v-rujoshi/_apis/test/plans/1"
     #$testResponse4 = Invoke-RestMethod -Uri $uri4 -Method Get -ContentType "application/json" -Headers $header -ConnectionTimeoutSeconds 120 -OperationTimeoutSeconds 120
