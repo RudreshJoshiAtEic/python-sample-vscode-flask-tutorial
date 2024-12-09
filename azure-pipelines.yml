@@ -108,14 +108,7 @@ steps:
 
     #Read more: https://www.sharepointdiary.com/2021/11/powershell-string-manipulation-comprehensive-guide.html#ixzz8tv0a5vd0
     $createTestRun5 = "$orgUrl/$projUrl/_apis/test/runs?$apiVersion"
-     $payload5 = '{
-        "name": "NewTestRun",
-        "automated":true,
-        "plan": {
-          "id": 1
-        },
-        "pointIds": {0}
-      }' -f $getTestPointsId2
+     $payload5 = ' "name": "NewTestRun",        "automated":true,        "plan": {          "id": 1         },         "pointIds": {0}    ' -f $getTestPointsId2
 
     echo "payload5 : "
 
