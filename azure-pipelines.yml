@@ -136,7 +136,7 @@ steps:
     # not running this as of now     
 
    
-      payload3 = "{
+      $payload3 = "{
         "name": "NewTestRun",
         "plan": {
           "id": "1"
