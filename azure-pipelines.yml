@@ -95,13 +95,7 @@ steps:
     echo " test suites -----------"
     echo $testSuites.value
 
-    # Get all test points for a test suite
-    $getAllTestPoints = "$orgUrl/$projUrl/_apis/test/plans/1/suites/3/points?$apiVersion"
-    $testPoints= Invoke-RestMethod  -Uri $getAllTestPoints -Method Get -ContentType "application/json" -Headers $header
-    $getTestPointsId = $testPoints.value.id -join ','  
-    echo "Are there any test points : 1 ? "
-    $test = "[$getTestPointsId]" 
-    echo $test
+   
 
     # Get all test points for a test suite
     $getAllTestPoints2 = "$orgUrl/$projUrl/_apis/test/plans/1/suites/6/points?$apiVersion"
@@ -112,6 +106,26 @@ steps:
 
     $test2 = "[$getTestPointsId2]" 
     echo $test2
+
+    $createTestRun = "$orgUrl/$projUrl/_apis/test/runs?$apiVersion"
+     $payload5 = '{
+        "name": "NewTestRun",
+        "automated":true,
+        "plan": {
+          "id": 1
+        },
+        "pointIds": [$getTestPointsId2]
+      }'
+
+    echo "payload5 : "
+
+    echo $payload5
+
+    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload5 -Headers $header -ContentType "application/json"
+
+    $testRunId = $testRunInformation.id
+
+
     #create test run
     $createTestRun = "$orgUrl/$projUrl/_apis/test/runs?$apiVersion"
     $testRunData = "@
@@ -161,11 +175,8 @@ steps:
 
     echo $createTestRun
     #    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload -Headers $header -ContentType "application/json"
-   $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload4 -Headers $header -ContentType "application/json"
+    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun -Body $payload4 -Headers $header -ContentType "application/json"
     
-    
-    
-
     echo "Printing testRunInformation.id"
    
     echo $testRunInformation.id
