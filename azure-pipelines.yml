@@ -129,14 +129,14 @@ steps:
     #  }'
     # $payload5 = ''
     #$payload5 = [String]::Format($payloadUnformated , $getTestPointsId2)
-    $payload5 = [String]::Format("{
+    $payload5 = [String]::Format('{
         "name": "NewTestRun",
         "automated":true,
         "plan": {
           "id": 1
         },
         "pointIds": {0}
-      }" , $getTestPointsId2)
+      }' , $getTestPointsId2)
 
     echo $payload5
 
