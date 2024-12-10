@@ -132,12 +132,12 @@ steps:
 
     
    
-
+    echo 'displaying payload5'
     echo $payload5
 
-    #$testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun5 -Body $payload5 -Headers $header -ContentType "application/json"
+    $testRunInformation = Invoke-RestMethod -Method 'Post' -Uri $createTestRun5 -Body $payload5 -Headers $header -ContentType "application/json"
 
-   # $testRunId = $testRunInformation.id
+    $testRunId = $testRunInformation.id
 
 
     #create test run
