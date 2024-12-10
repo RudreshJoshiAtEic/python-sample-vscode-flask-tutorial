@@ -125,10 +125,10 @@ steps:
         "plan": {
           "id": 1
         },
-        "pointIds":'
+        "pointIds": ['
         
         
-     $payload5 =  $payloadUnformated + $getTestPointsId2 + '}'
+     $payload5 =  $payloadUnformated + $getTestPointsId2 + '] }'
 
     
    
