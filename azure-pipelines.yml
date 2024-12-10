@@ -116,18 +116,18 @@ steps:
 
    # $payload5 = '{ "name": "NewTestRun", "automated":true,"plan": {"id": 1 },  "pointIds": {0} } ' -f $getTestPointsId2
    # $payload5 = [String]::Format('{ "name": "NewTestRun", "automated":true,"plan": {"id": 1 },  "pointIds": {1} '} ', $getTestPointsId2)
-    echo "payload5 : "
+    #echo "payload5 : "
 
 
-    $payloadUnformated = '{
-        "name": "NewTestRun",
-        "automated":true,
-        "plan": {
-          "id": 1
-        },
-        "pointIds": {0}
-      }'
-    $payload5 = ''
+    #$payloadUnformated = '{
+    #    "name": "NewTestRun",
+    #    "automated":true,
+    #    "plan": {
+    #      "id": 1
+    #    },
+    #    "pointIds": {0}
+    #  }'
+    # $payload5 = ''
     #$payload5 = [String]::Format($payloadUnformated , $getTestPointsId2)
     $payload5 = [String]::Format("{
         "name": "NewTestRun",
